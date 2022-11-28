@@ -14,7 +14,7 @@
     let lastTime = null
     let elapsed = 0
 
-    let bText1 = "EXAMPLE", bText2 = "EXAMPLE"
+    let bText1 = "EXAMPLE", bText2 = "EXAMPLE2"
     let bElem1, bElem2
     let bID1 = 1, bID2 = 1
 
