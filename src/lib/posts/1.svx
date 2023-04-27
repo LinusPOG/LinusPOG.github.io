@@ -1,0 +1,64 @@
+---
+title: Nottify Part 1
+date: "2023-04-21"
+---
+
+<script>
+ let a = 0;
+</script>
+
+Hello, welcome to Notify Part 1. In this part I will tell you about the start of everything such as the visualiser, login and register. 
+
+### **The start of everything**
+Everything started out with me one day playing around with audio related stuff with svelte. What I ended up prototyping was a music visualiser than reacted to the frequencies of the music. It was really rough but it was what started my whole idea of Notify.
+<br />
+<div class="ImageDiv">
+    <b>Image below is the early prototype that was made.</b>
+    <img src="FirstVersion.PNG" />
+</div>
+
+### **After the prototype?**
+After the protype, I decided to make it bigger. Which lead me to planning out a rough idea of the website features, one of the big features I wanted was an account system where you can login and register. That is why it all started with me designing the register/login page.
+
+I went with a 3d design for the page becaues I wanted to play around with transform-style: preserve-3d. I got a pretty good result as shown bellow.
+
+<div class="ImageDiv">
+    <img src="FirstVersion.PNG" />
+</div>
+
+### **Good decision but costed me some time**
+While I was designing the register/login page I realised that I might benefit from typescript, which is why I remade everything currently to typescript. I love typescript because of it's utility.
+
+### **Progress**
+✔️ Register / login page <br/>
+✔️ Typescript <br/>
+<!-- ❌ idk stuff <br/> -->
+
+
+<h1>{a}</h1>
+
+<button on:click={()=>{a = a + 1}}>CLICK ME</button>
+
+<style>
+    img {
+        width: 60%;
+        border-radius: 16px;
+        border-width: 7px;
+        border-color: rgba(25,25,25, 60%);
+        border-style: solid;
+    }
+    .ImageDiv {
+        background-color: rgba(0, 0, 0, 20%);
+        width: 107.5%;
+        margin-left: -3.75%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
+</style>
