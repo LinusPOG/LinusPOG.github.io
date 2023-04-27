@@ -7,7 +7,6 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 
-
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 
@@ -15,13 +14,16 @@ const config = {
 	// for more information about preprocessors
 	preprocess: [preprocess(), mdsvex({
 		extensions: ['.md', '.svx'],
-		layout: { blog: './src/routes/post.svelte' },
+		layout: { default: './src/routes/post.svelte' },
 	})],
 
 	kit: {
 		adapter: adapter({
 			pages: 'docs',
 			assets: 'docs',
+            fallback: null,
+            precompress: false,
+            strict: true
 		})
 	},
 
