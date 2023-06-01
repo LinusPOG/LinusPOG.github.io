@@ -1,53 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="./favicon.png" />
-		<meta name="viewport" content="width=device-width" />
-		<meta http-equiv="content-security-policy" content="">
-		<link href="./_app/immutable/assets/_layout.9eaaa0a4.css" rel="stylesheet">
-		<link href="./_app/immutable/assets/1.5aa1c98f.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.a02da088.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.3d9248da.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.dfe5e4e5.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.763d4e2c.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.41c905a7.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_layout.svelte.1362c323.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_layout.js.984db11e.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_path_-page.svelte.2237e4ab.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_path_-page.js.53ee5f27.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/_page.6ec07485.js"><!-- HEAD_svelte-1cf3257_START --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"><style>nav {
-      margin-left: 10%;
-      margin-right: 10%;
-    }
-  </style><!-- HEAD_svelte-1cf3257_END -->
-	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">
-
-
-
-
-<main data-theme="dark" class="container">
-
-
-<article><h1>Nottify Part 2</h1>
-  <p>Published: 2023-05-22</p>
-  <p>Hello, welcome to Nottify Part 2. This time I will talk about the database / login / register system. </p>
-<h3><strong>Database</strong></h3>
-<p>To find out how to save data, I asked my teacher for an easy way to make a database. What he recommended me was prisma, prisma is a client that simplifies using databases. It’s sort of a middle ware where you get access to a simple api and in the backend prisma handles the non javascript related stuff. The actual database engine I used was sqlite but ofcourse prisma simplified it for me.</p>
-<p>My schema for prisma:</p>
-<b>IMPORTANT: You can create relations by refering to model and putting [] at the end.
-Example Song[] will refer to a list of songs.
-When doing relations both models will need to &quot;relate&quot; to each other, otherwise prisma gets mad at you.
-</b>
-<br>
-<b>User can contain, songs and playlists, songs and playlists can contain users and songs can contain genres which can contain songs
-and so on..
-If you were to add a song into user, the song would also get a user added to it, because they require &quot;relating&quot; to each other.
-</b>
-<pre class="language-prisma"><!-- HTML_TAG_START --><code class="language-prisma">// This is your Prisma schema file,
+import{S as En,i as _n,s as Sn,k as p,q as r,a as c,l as o,m as l,r as u,h as n,c as i,n as W,b as t,E as e,I as Ws}from"./index.3d9248da.js";function Rn(kn){let f,ys,z,v,G,hs,F,b,gs,J,I,vs,V,E,bs,Y,C,$,_,Is,K,m,dn=`<code class="language-prisma">// This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client &#123;
@@ -106,18 +57,11 @@ model Genre &#123;
   plays Int @default(0)
   songs Song[]
   playlists Playlist[]
-&#125;</code><!-- HTML_TAG_END --></pre>
-<br>
-<h2><strong>Learning serverside</strong></h2>
-<p>Now at this point I had to start learning how to do the serverside on svelte. Luckily svelete has such a good solution for the serverside, I have previously played around with node js which is why I picked up svelte serverside quickly. Svelte combined with vs code helped a bit because it allows you to create small template files that helps you get started, my teacher helped lots with putting me in the right direction.</p>
-<p><strong>Example template you get on a +page.server.ts file:</strong></p>
-<pre class="language-ts"><!-- HTML_TAG_START --><code class="language-ts"><span class="token keyword">import</span> <span class="token keyword">type</span> <span class="token punctuation">&#123;</span> PageServerLoad <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'./$types'</span><span class="token punctuation">;</span>
+&#125;</code>`,Q,X,Z,S,B,Es,ss,R,_s,ns,T,A,Ss,as,w,fn=`<code class="language-ts"><span class="token keyword">import</span> <span class="token keyword">type</span> <span class="token punctuation">&#123;</span> PageServerLoad <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'./$types'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">const</span> load <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span> satisfies PageServerLoad<span class="token punctuation">;</span></code><!-- HTML_TAG_END --></pre>
-<h2><strong>Javascript/svelte (SERVER SIDE) part:</strong></h2>
-<pre class="language-ts"><!-- HTML_TAG_START --><code class="language-ts"><span class="token comment">// LOGIN FORM!</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span> satisfies PageServerLoad<span class="token punctuation">;</span></code>`,ts,P,H,Rs,ps,y,mn=`<code class="language-ts"><span class="token comment">// LOGIN FORM!</span>
 <span class="token keyword">const</span> login<span class="token operator">:</span> <span class="token function-variable function">Action</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span> cookies<span class="token punctuation">,</span> request <span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">const</span> data <span class="token operator">=</span> <span class="token keyword">await</span> request<span class="token punctuation">.</span><span class="token function">formData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token keyword">const</span> <span class="token punctuation">[</span>username<span class="token punctuation">,</span> password<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>data<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> data<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"pass"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
@@ -153,63 +97,34 @@ model Genre &#123;
     cookies<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"token"</span><span class="token punctuation">,</span> token<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>expires<span class="token operator">:</span> <span class="token function">GetExpire</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 
     <span class="token keyword">throw</span> <span class="token function">redirect</span><span class="token punctuation">(</span><span class="token number">302</span><span class="token punctuation">,</span> <span class="token string">"/songs"</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre>
-<br>
-<p><strong>To check if a user is logged in I do this serverside:</strong></p>
-<pre class="language-ts"><!-- HTML_TAG_START --><code class="language-ts"><span class="token keyword">const</span> token <span class="token operator">=</span> cookies<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"token"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span></code>`,os,es,ls,q,M,Ts,cs,h,wn=`<code class="language-ts"><span class="token keyword">const</span> token <span class="token operator">=</span> cookies<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"token"</span><span class="token punctuation">)</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span>token<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
     <span class="token keyword">const</span> user <span class="token operator">=</span> <span class="token keyword">await</span> prisma<span class="token punctuation">.</span>user<span class="token punctuation">.</span><span class="token function">findUnique</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>where<span class="token operator">:</span><span class="token punctuation">&#123;</span>token<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> select<span class="token operator">:</span><span class="token punctuation">&#123;</span>id<span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>name<span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>isAdmin<span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>playlists<span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 
     <span class="token keyword">if</span> <span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
         <span class="token comment">//Logged in!</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre>
-<br>
-<p><strong>Once it’s been checked serverside I return whatever is needed. For example I am doing this client side to display that you are logged in:</strong></p>
-<pre class="language-ts"><!-- HTML_TAG_START --><code class="language-ts"><span class="token punctuation">&#123;</span>#<span class="token keyword">if</span> data<span class="token punctuation">.</span>login<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code>`,is,rs,us,x,j,Ps,ks,g,yn=`<code class="language-ts"><span class="token punctuation">&#123;</span>#<span class="token keyword">if</span> data<span class="token punctuation">.</span>login<span class="token punctuation">&#125;</span>
     <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"userDiv absolute left-5 flex items-center"</span><span class="token operator">></span><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"rounded-full bg-b1 w-12 h-12 inline-flex"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><span class="token operator">&lt;</span>p <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"inline-flex ml-2 text-white"</span><span class="token operator">></span>Welcome <span class="token punctuation">&#123;</span><span class="token constant">USERNAME</span><span class="token punctuation">&#125;</span><span class="token operator">!</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
     <span class="token operator">&lt;</span>button <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"text-white mr-2 z-10"</span> on<span class="token operator">:</span>click<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>document<span class="token punctuation">.</span>location<span class="token punctuation">.</span>href <span class="token operator">=</span> <span class="token string">"/upload"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token operator">></span>Upload<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
     <span class="token operator">&lt;</span>button <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"text-white mr-2 z-10"</span> on<span class="token operator">:</span>click<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>document<span class="token punctuation">.</span>location<span class="token punctuation">.</span>href <span class="token operator">=</span> <span class="token string">"/logout"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token operator">></span>Logout<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
 <span class="token punctuation">&#123;</span><span class="token operator">:</span><span class="token keyword">else</span><span class="token punctuation">&#125;</span>
     <span class="token operator">&lt;</span>button <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"text-white mr-2 z-10"</span> on<span class="token operator">:</span>click<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>document<span class="token punctuation">.</span>location<span class="token punctuation">.</span>href <span class="token operator">=</span> <span class="token string">"/login?reg=true"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token operator">></span>Register<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
     <span class="token operator">&lt;</span>button <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"text-white mr-2 z-10"</span> on<span class="token operator">:</span>click<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>document<span class="token punctuation">.</span>location<span class="token punctuation">.</span>href <span class="token operator">=</span> <span class="token string">"/login"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token operator">></span>Login<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
-<span class="token punctuation">&#123;</span><span class="token operator">/</span><span class="token keyword">if</span><span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre>
-<h3><strong>What was hard?</strong></h3>
-<p>There wasn’t really anything hard, honestly the hardest part for me was installing prisma onto my project. Otherwise prisma was super easy to use and I would recommend this to other people, I don’t know much about databases so I cannot compare to other comparable things. I do think this is a very beginner friendly start though, especially using it with svelte aswell. Even the documentation is awesome for prisma, I just had to google and found my answers quicky. Learning how to do serverside was easy aswell, I don’t think I had any problems at all since I already knew how to use node js which easily transitioned into svelte.</p>
-<h3><strong>Progress</strong></h3>
-<p>✔️ Register / login functionallity <br>
-✔️ Register / login page <br>
-✔️ Typescript <br>
-❌ Audio streaming <br>
-❌ Song lists <br></p></article>
-</main>
-
-
-			
-			<script>
-				{
-					__sveltekit_2zrq7z = {
-						base: new URL(".", location).pathname.slice(0, -1),
-						env: {}
-					};
-
-					const element = document.currentScript.parentElement;
-
-					const data = [null,null];
-
-					Promise.all([
-						import("./_app/immutable/entry/start.a02da088.js"),
-						import("./_app/immutable/entry/app.763d4e2c.js")
-					]).then(([kit, app]) => {
-						kit.start(app, element, {
-							node_ids: [0, 3],
-							data,
-							form: null,
-							error: null
-						});
-					});
-				}
-			</script>
-		</div>
-	</body>
-</html>
+<span class="token punctuation">&#123;</span><span class="token operator">/</span><span class="token keyword">if</span><span class="token punctuation">&#125;</span></code>`,ds,L,U,qs,fs,N,xs,ms,O,D,Ls,ws,k,Ns,Os,Gs,Bs,As,Hs,Ms,js,Us,Ds;return{c(){f=p("p"),ys=r("Hello, welcome to Nottify Part 2. This time I will talk about the database / login / register system."),z=c(),v=p("h3"),G=p("strong"),hs=r("Database"),F=c(),b=p("p"),gs=r("To find out how to save data, I asked my teacher for an easy way to make a database. What he recommended me was prisma, prisma is a client that simplifies using databases. It’s sort of a middle ware where you get access to a simple api and in the backend prisma handles the non javascript related stuff. The actual database engine I used was sqlite but ofcourse prisma simplified it for me."),J=c(),I=p("p"),vs=r("My schema for prisma:"),V=c(),E=p("b"),bs=r(`IMPORTANT: You can create relations by refering to model and putting [] at the end.
+Example Song[] will refer to a list of songs.
+When doing relations both models will need to "relate" to each other, otherwise prisma gets mad at you.`),Y=c(),C=p("br"),$=c(),_=p("b"),Is=r(`User can contain, songs and playlists, songs and playlists can contain users and songs can contain genres which can contain songs
+and so on..
+If you were to add a song into user, the song would also get a user added to it, because they require "relating" to each other.`),K=c(),m=p("pre"),Q=c(),X=p("br"),Z=c(),S=p("h2"),B=p("strong"),Es=r("Learning serverside"),ss=c(),R=p("p"),_s=r("Now at this point I had to start learning how to do the serverside on svelte. Luckily svelete has such a good solution for the serverside, I have previously played around with node js which is why I picked up svelte serverside quickly. Svelte combined with vs code helped a bit because it allows you to create small template files that helps you get started, my teacher helped lots with putting me in the right direction."),ns=c(),T=p("p"),A=p("strong"),Ss=r("Example template you get on a +page.server.ts file:"),as=c(),w=p("pre"),ts=c(),P=p("h2"),H=p("strong"),Rs=r("Javascript/svelte (SERVER SIDE) part:"),ps=c(),y=p("pre"),os=c(),es=p("br"),ls=c(),q=p("p"),M=p("strong"),Ts=r("To check if a user is logged in I do this serverside:"),cs=c(),h=p("pre"),is=c(),rs=p("br"),us=c(),x=p("p"),j=p("strong"),Ps=r("Once it’s been checked serverside I return whatever is needed. For example I am doing this client side to display that you are logged in:"),ks=c(),g=p("pre"),ds=c(),L=p("h3"),U=p("strong"),qs=r("What was hard?"),fs=c(),N=p("p"),xs=r("There wasn’t really anything hard, honestly the hardest part for me was installing prisma onto my project. Otherwise prisma was super easy to use and I would recommend this to other people, I don’t know much about databases so I cannot compare to other comparable things. I do think this is a very beginner friendly start though, especially using it with svelte aswell. Even the documentation is awesome for prisma, I just had to google and found my answers quicky. Learning how to do serverside was easy aswell, I don’t think I had any problems at all since I already knew how to use node js which easily transitioned into svelte."),ms=c(),O=p("h3"),D=p("strong"),Ls=r("Progress"),ws=c(),k=p("p"),Ns=r("✔️ Register / login functionallity "),Os=p("br"),Gs=r(`
+✔️ Register / login page `),Bs=p("br"),As=r(`
+✔️ Typescript `),Hs=p("br"),Ms=r(`
+❌ Audio streaming `),js=p("br"),Us=r(`
+❌ Song lists `),Ds=p("br"),this.h()},l(s){f=o(s,"P",{});var a=l(f);ys=u(a,"Hello, welcome to Nottify Part 2. This time I will talk about the database / login / register system."),a.forEach(n),z=i(s),v=o(s,"H3",{});var zs=l(v);G=o(zs,"STRONG",{});var Fs=l(G);hs=u(Fs,"Database"),Fs.forEach(n),zs.forEach(n),F=i(s),b=o(s,"P",{});var Js=l(b);gs=u(Js,"To find out how to save data, I asked my teacher for an easy way to make a database. What he recommended me was prisma, prisma is a client that simplifies using databases. It’s sort of a middle ware where you get access to a simple api and in the backend prisma handles the non javascript related stuff. The actual database engine I used was sqlite but ofcourse prisma simplified it for me."),Js.forEach(n),J=i(s),I=o(s,"P",{});var Vs=l(I);vs=u(Vs,"My schema for prisma:"),Vs.forEach(n),V=i(s),E=o(s,"B",{});var Ys=l(E);bs=u(Ys,`IMPORTANT: You can create relations by refering to model and putting [] at the end.
+Example Song[] will refer to a list of songs.
+When doing relations both models will need to "relate" to each other, otherwise prisma gets mad at you.`),Ys.forEach(n),Y=i(s),C=o(s,"BR",{}),$=i(s),_=o(s,"B",{});var Cs=l(_);Is=u(Cs,`User can contain, songs and playlists, songs and playlists can contain users and songs can contain genres which can contain songs
+and so on..
+If you were to add a song into user, the song would also get a user added to it, because they require "relating" to each other.`),Cs.forEach(n),K=i(s),m=o(s,"PRE",{class:!0});var hn=l(m);hn.forEach(n),Q=i(s),X=o(s,"BR",{}),Z=i(s),S=o(s,"H2",{});var $s=l(S);B=o($s,"STRONG",{});var Ks=l(B);Es=u(Ks,"Learning serverside"),Ks.forEach(n),$s.forEach(n),ss=i(s),R=o(s,"P",{});var Qs=l(R);_s=u(Qs,"Now at this point I had to start learning how to do the serverside on svelte. Luckily svelete has such a good solution for the serverside, I have previously played around with node js which is why I picked up svelte serverside quickly. Svelte combined with vs code helped a bit because it allows you to create small template files that helps you get started, my teacher helped lots with putting me in the right direction."),Qs.forEach(n),ns=i(s),T=o(s,"P",{});var Xs=l(T);A=o(Xs,"STRONG",{});var Zs=l(A);Ss=u(Zs,"Example template you get on a +page.server.ts file:"),Zs.forEach(n),Xs.forEach(n),as=i(s),w=o(s,"PRE",{class:!0});var gn=l(w);gn.forEach(n),ts=i(s),P=o(s,"H2",{});var sn=l(P);H=o(sn,"STRONG",{});var nn=l(H);Rs=u(nn,"Javascript/svelte (SERVER SIDE) part:"),nn.forEach(n),sn.forEach(n),ps=i(s),y=o(s,"PRE",{class:!0});var vn=l(y);vn.forEach(n),os=i(s),es=o(s,"BR",{}),ls=i(s),q=o(s,"P",{});var an=l(q);M=o(an,"STRONG",{});var tn=l(M);Ts=u(tn,"To check if a user is logged in I do this serverside:"),tn.forEach(n),an.forEach(n),cs=i(s),h=o(s,"PRE",{class:!0});var bn=l(h);bn.forEach(n),is=i(s),rs=o(s,"BR",{}),us=i(s),x=o(s,"P",{});var pn=l(x);j=o(pn,"STRONG",{});var on=l(j);Ps=u(on,"Once it’s been checked serverside I return whatever is needed. For example I am doing this client side to display that you are logged in:"),on.forEach(n),pn.forEach(n),ks=i(s),g=o(s,"PRE",{class:!0});var In=l(g);In.forEach(n),ds=i(s),L=o(s,"H3",{});var en=l(L);U=o(en,"STRONG",{});var ln=l(U);qs=u(ln,"What was hard?"),ln.forEach(n),en.forEach(n),fs=i(s),N=o(s,"P",{});var cn=l(N);xs=u(cn,"There wasn’t really anything hard, honestly the hardest part for me was installing prisma onto my project. Otherwise prisma was super easy to use and I would recommend this to other people, I don’t know much about databases so I cannot compare to other comparable things. I do think this is a very beginner friendly start though, especially using it with svelte aswell. Even the documentation is awesome for prisma, I just had to google and found my answers quicky. Learning how to do serverside was easy aswell, I don’t think I had any problems at all since I already knew how to use node js which easily transitioned into svelte."),cn.forEach(n),ms=i(s),O=o(s,"H3",{});var rn=l(O);D=o(rn,"STRONG",{});var un=l(D);Ls=u(un,"Progress"),un.forEach(n),rn.forEach(n),ws=i(s),k=o(s,"P",{});var d=l(k);Ns=u(d,"✔️ Register / login functionallity "),Os=o(d,"BR",{}),Gs=u(d,`
+✔️ Register / login page `),Bs=o(d,"BR",{}),As=u(d,`
+✔️ Typescript `),Hs=o(d,"BR",{}),Ms=u(d,`
+❌ Audio streaming `),js=o(d,"BR",{}),Us=u(d,`
+❌ Song lists `),Ds=o(d,"BR",{}),d.forEach(n),this.h()},h(){W(m,"class","language-prisma"),W(w,"class","language-ts"),W(y,"class","language-ts"),W(h,"class","language-ts"),W(g,"class","language-ts")},m(s,a){t(s,f,a),e(f,ys),t(s,z,a),t(s,v,a),e(v,G),e(G,hs),t(s,F,a),t(s,b,a),e(b,gs),t(s,J,a),t(s,I,a),e(I,vs),t(s,V,a),t(s,E,a),e(E,bs),t(s,Y,a),t(s,C,a),t(s,$,a),t(s,_,a),e(_,Is),t(s,K,a),t(s,m,a),m.innerHTML=dn,t(s,Q,a),t(s,X,a),t(s,Z,a),t(s,S,a),e(S,B),e(B,Es),t(s,ss,a),t(s,R,a),e(R,_s),t(s,ns,a),t(s,T,a),e(T,A),e(A,Ss),t(s,as,a),t(s,w,a),w.innerHTML=fn,t(s,ts,a),t(s,P,a),e(P,H),e(H,Rs),t(s,ps,a),t(s,y,a),y.innerHTML=mn,t(s,os,a),t(s,es,a),t(s,ls,a),t(s,q,a),e(q,M),e(M,Ts),t(s,cs,a),t(s,h,a),h.innerHTML=wn,t(s,is,a),t(s,rs,a),t(s,us,a),t(s,x,a),e(x,j),e(j,Ps),t(s,ks,a),t(s,g,a),g.innerHTML=yn,t(s,ds,a),t(s,L,a),e(L,U),e(U,qs),t(s,fs,a),t(s,N,a),e(N,xs),t(s,ms,a),t(s,O,a),e(O,D),e(D,Ls),t(s,ws,a),t(s,k,a),e(k,Ns),e(k,Os),e(k,Gs),e(k,Bs),e(k,As),e(k,Hs),e(k,Ms),e(k,js),e(k,Us),e(k,Ds)},p:Ws,i:Ws,o:Ws,d(s){s&&n(f),s&&n(z),s&&n(v),s&&n(F),s&&n(b),s&&n(J),s&&n(I),s&&n(V),s&&n(E),s&&n(Y),s&&n(C),s&&n($),s&&n(_),s&&n(K),s&&n(m),s&&n(Q),s&&n(X),s&&n(Z),s&&n(S),s&&n(ss),s&&n(R),s&&n(ns),s&&n(T),s&&n(as),s&&n(w),s&&n(ts),s&&n(P),s&&n(ps),s&&n(y),s&&n(os),s&&n(es),s&&n(ls),s&&n(q),s&&n(cs),s&&n(h),s&&n(is),s&&n(rs),s&&n(us),s&&n(x),s&&n(ks),s&&n(g),s&&n(ds),s&&n(L),s&&n(fs),s&&n(N),s&&n(ms),s&&n(O),s&&n(ws),s&&n(k)}}}const Pn={title:"Nottify Part 2",date:"2023-05-22"};class qn extends En{constructor(f){super(),_n(this,f,null,Rn,Sn,{})}}export{qn as default,Pn as metadata};

@@ -7,18 +7,17 @@
 		<meta http-equiv="content-security-policy" content="">
 		<link href="./_app/immutable/assets/_layout.9eaaa0a4.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/1.5aa1c98f.css" rel="stylesheet">
-		<link href="./_app/immutable/assets/2.c12348e4.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.72c7b4ae.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.f1a9d9c6.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.b7b2b4db.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.854b9933.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.a02da088.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.3d9248da.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.dfe5e4e5.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.763d4e2c.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.41c905a7.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_layout.svelte.c1441345.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/_layout.svelte.1362c323.js">
 		<link rel="modulepreload" href="./_app/immutable/entry/_layout.js.984db11e.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_path_-page.svelte.fff261e1.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_path_-page.js.aed79b86.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/_page.a5649c54.js"><!-- HEAD_svelte-1cf3257_START --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"><style>nav {
+		<link rel="modulepreload" href="./_app/immutable/entry/_path_-page.svelte.2237e4ab.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/_path_-page.js.53ee5f27.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/_page.6ec07485.js"><!-- HEAD_svelte-1cf3257_START --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"><style>nav {
       margin-left: 10%;
       margin-right: 10%;
     }
@@ -35,21 +34,46 @@
 
 <article><h1>Nottify Part 1</h1>
   <p>Published: 2023-04-21</p>
-  <p>Hello, welcome to Notify Part 1. In this part I will tell you about the start of everything such as the visualiser, login and register. </p>
+  <p>Hello, welcome to Nottify Part 1. In this part I will tell you about the start of everything such as the visualiser, login and register. </p>
 <h3><strong>The start of everything</strong></h3>
-<p>Everything started out with me one day playing around with audio related stuff with svelte. What I ended up prototyping was a music visualiser than reacted to the frequencies of the music. It was really rough but it was what started my whole idea of Notify.</p>
+<p>Everything started out with me one day playing around with audio related stuff with svelte. What I ended up prototyping was a music visualiser than reacted to the frequencies of the music. It was really rough but it was what started my whole idea of Notify. I experimented with a circular progress bar. But later on in the project I found out that sometimes, less is more! Which is why I changed it to something else.</p>
 <br>
 <div class="ImageDiv svelte-1tuin5d"><b>Image below is the early prototype that was made.</b>
     <img src="FirstVersion.PNG" class="svelte-1tuin5d"></div>
+Usefull code I used for detecting audio frequencies for visualisation (found this on youtube I think):
+<pre class="language-js"><!-- HTML_TAG_START --><code class="language-js"><span class="token comment">// Initializing "listeners" to audio, audio = HTMLAudioElement. Can be created using new Audio("path").</span>
+<span class="token keyword">const</span> audioContext <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AudioContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> analyserNode <span class="token operator">=</span> audioContext<span class="token punctuation">.</span><span class="token function">createAnalyser</span><span class="token punctuation">(</span>audio<span class="token punctuation">)</span>
+<span class="token keyword">const</span> track <span class="token operator">=</span> audioContext<span class="token punctuation">.</span><span class="token function">createMediaElementSource</span><span class="token punctuation">(</span>audio<span class="token punctuation">)</span>
+analyserNode<span class="token punctuation">.</span>fftSize <span class="token operator">=</span> NumberOfLines<span class="token operator">*</span><span class="token number">2</span>
+analyserNode<span class="token punctuation">.</span>smoothingTimeConstant <span class="token operator">=</span> <span class="token number">.4</span>
+
+track<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span>analyserNode<span class="token punctuation">)</span>
+analyserNode<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span>audioContext<span class="token punctuation">.</span>destination<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> bufferLength <span class="token operator">=</span> analyserNode<span class="token punctuation">.</span>frequencyBinCount
+<span class="token keyword">const</span> dataArray <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Uint8Array</span><span class="token punctuation">(</span>bufferLength<span class="token punctuation">)</span>
+analyserNode<span class="token punctuation">.</span><span class="token function">getByteTimeDomainData</span><span class="token punctuation">(</span>dataArray<span class="token punctuation">)</span>
+
+<span class="token comment">// Updating audio data and looping through frequencies</span>
+analyserNode<span class="token punctuation">.</span><span class="token function">getByteTimeDomainData</span><span class="token punctuation">(</span>dataArray<span class="token punctuation">)</span>
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>bufferLength<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> freq <span class="token operator">=</span> dataArray<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre>
 <h3><strong>After the prototype?</strong></h3>
 <p>After the protype, I decided to make it bigger. Which lead me to planning out a rough idea of the website features, one of the big features I wanted was an account system where you can login and register. That is why it all started with me designing the register/login page.</p>
 <p>I went with a 3d design for the page becaues I wanted to play around with transform-style: preserve-3d. I got a pretty good result as shown bellow.</p>
 <div class="ImageDiv svelte-1tuin5d"><img src="FirstVersion.PNG" class="svelte-1tuin5d"></div>
-<h3><strong>Good decision but costed me some time</strong></h3>
-<p>While I was designing the register/login page I realised that I might benefit from typescript, which is why I remade everything currently to typescript. I love typescript because of it’s utility.</p>
+<h3><strong>Good decision but it cost me some time</strong></h3>
+<p>While I was designing the register/login page I realised that I might benefit from typescript, which is why I remade everything currently to typescript. I love typescript, for example the autocomplete becomes much better when I can specify types which allows me to write code faster.</p>
+<h3><strong>Conclusion</strong></h3>
+<p>I really enjoy working svelte and this was a good learning experience, I think this was my first time using typescript and oh boy, I really liked it. I like listening to music which is probably why I came up with the idea to begin with, I have actually made a music visualiser before but that was in Roblox but you code in lua there.</p>
 <h3><strong>Progress</strong></h3>
-<p>✔️ Register / login page <br>
-✔️ Typescript <br></p>
+<p>❌ Register / login functionallity <br>
+✔️ Register / login page <br>
+❌ Typescript <br>
+❌ Audio streaming <br>
+❌ Song lists <br></p>
 
 <h1>0</h1>
 <button>CLICK ME</button></article>
@@ -59,7 +83,7 @@
 			
 			<script>
 				{
-					__sveltekit_uc7rge = {
+					__sveltekit_2zrq7z = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -69,8 +93,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.72c7b4ae.js"),
-						import("./_app/immutable/entry/app.854b9933.js")
+						import("./_app/immutable/entry/start.a02da088.js"),
+						import("./_app/immutable/entry/app.763d4e2c.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
