@@ -1,0 +1,84 @@
+---
+title: Nottify Part 3
+date: "2023-05-25"
+---
+
+Welcome to Part 3. In this part I will be talking about how I streamed audio and songs/playlists.
+
+### **Streaming audio..**
+Now, this part was quite annoying since there was not much documentation on how to stream audio in svelte. 
+This is what I found out worked for me:
+
+Server:
+```ts
+export const GET: RequestHandler = async ({cookies, url}) => {
+    const stream = await fs.createReadStream(`song.mp3`)
+
+    return new Response(stream)
+}
+```
+
+Basic client:
+```svelte
+<script lang="ts">
+    let audio = new Audio('/audio/1')
+    audio.play() // you have to put play in a user input event like a button click otherwise your browser will block playing the audio.
+</script>
+```
+
+Once I had audio streaming I was able to start designing the website. I made all my components for songs modular by making them into components.
+
+<div class="ImageDiv">
+    <b>This is the design I came up with for each song object.</b>
+    <b>It has play/pause, song name, uploader name and a button list</b>
+    <b>where you can choose options such as like remove from playlist.</b>
+    <img src="SongExample.PNG" />
+    <b>This is how it looked when I put it into a list:</b>
+</div>
+
+<div class="ImageDiv">
+    <!-- <b>Image below is the early prototype that was made.</b> -->
+    <img src="SongsList.PNG" />
+</div>
+
+<br/>
+
+I built it quite modular which is why I was able to place the song list in any page I wanted, I placed it in a playlist page here:
+
+<div class="ImageDiv">
+    <img src="SongsListPlaylist.PNG" />
+</div>
+
+### **Conclusion**
+Now, I think this went pretty smoothly though I have to say it was quite annoying finding anything about audio streaming. I'm happy with how turned out.
+
+### **Progress**
+✔️ Register / login functionallity <br/>
+✔️ Register / login page <br/>
+✔️ Typescript <br/>
+✔️ Audio streaming <br/>
+✔️ Song lists <br/>
+
+<style>
+    img {
+        width: 60%;
+        border-radius: 16px;
+        border-width: 7px;
+        border-color: rgba(25,25,25, 60%);
+        border-style: solid;
+    }
+    .ImageDiv {
+        background-color: rgba(0, 0, 0, 20%);
+        width: 107.5%;
+        margin-left: -3.75%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
+</style>

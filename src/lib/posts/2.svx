@@ -1,87 +1,207 @@
 ---
-title: Post Two
-date: "2022-11-29"
-count: 25
-color: cadetblue
-list: [1, 2, 3, 4, "boo"]
+title: Nottify Part 2
+date: "2023-05-22"
 ---
 
-<script>
-	import Boinger from './2/Boinger.svelte';
-	import Section from './2/Section.svx';
-	import Count from './2/Count.svelte';
-    import Seriously from './2/Seriously.svelte';
+Hello, welcome to Nottify Part 2. This time I will talk about the database / login / register system. 
 
-	let number = 45;
-</script>
+### **Database**
+To find out how to save data, I asked my teacher for an easy way to make a database. What he recommended me was prisma, prisma is a client that simplifies using databases. It's sort of a middle ware where you get access to a simple api and in the backend prisma handles the non javascript related stuff. The actual database engine I used was sqlite but ofcourse prisma simplified it for me.
+
+My schema for prisma:
+
+<b>
+IMPORTANT: You can create relations by refering to model and putting [] at the end.
+Example Song[] will refer to a list of songs.
+When doing relations both models will need to "relate" to each other, otherwise prisma gets mad at you.
+</b>
+<br/>
+<b>
+User can contain, songs and playlists, songs and playlists can contain users and songs can contain genres which can contain songs
+and so on..
+If you were to add a song into user, the song would also get a user added to it, because they require "relating" to each other.
+</b>
+
+```prisma
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  password String
+  name String @unique
+  token String @unique
+  isAdmin Boolean?
+  playing Int?
+  state String?
+  songs Song[]
+  playlists Playlist[]
+}
+
+model Song {
+  id Int @id @default(autoincrement())
+  users User[]
+  name String
+  description String
+  plays Int @default(0)
+  likes Int @default(0)
+  playlists Playlist[]
+  genres Genre[]
+}
+
+model Playlist {
+  id Int @id @default(autoincrement())
+  users User[]
+  name String
+  description String
+  plays Int @default(0)
+  likes Int @default(0)
+  songs Song[]
+  genres Genre[]
+}
+
+model ScriptedPlaylist {
+  id Int @id @default(autoincrement())
+  name String @unique
+}
+
+model Genre {
+  id Int @id @default(autoincrement())
+  name String @unique
+  description String
+  plays Int @default(0)
+  songs Song[]
+  playlists Playlist[]
+}
+```
+
+<br/>
+
+
+## **Learning serverside**
+
+Now at this point I had to start learning how to do the serverside on svelte. Luckily svelete has such a good solution for the serverside, I have previously played around with node js which is why I picked up svelte serverside quickly. Svelte combined with vs code helped a bit because it allows you to create small template files that helps you get started, my teacher helped lots with putting me in the right direction.
+
+**Example template you get on a +page.server.ts file:**
 
 ```ts
-import type { PageLoad } from "./$types";
+import type { PageServerLoad } from './$types';
 
-export const load: PageLoad = async ({fetch}) => {
-	const response = await fetch(`/api/posts`);
-	const posts = await response.json();
-
-	return {
-	posts,
-	};
-};
+export const load = (async () => {
+    return {};
+}) satisfies PageServerLoad;
 ```
 
-## Good stuff in your markdown
+## **Javascript/svelte (SERVER SIDE) part:**
 
-Markdown is pretty good but sometimes you just need more.
+```ts
+// LOGIN FORM!
+const login: Action = async ({ cookies, request }) => {
+    const data = await request.formData()
+    const [username, password] = [data.get("user"), data.get("pass")]
 
-Sometimes you need a boinger like this:
+    if (typeof(username) != "string" || typeof(password) != "string" || !username || !password){
+        return invalid(400, {invalid: true})
+    }
 
-<Boinger color="{ color }"/>
+    let result = await prisma.user.findUnique({where:{name:username},})
+    if(result?.password==password)
+    {
+        const token = uuidv4()
+        await prisma.user.update({where:{name:username}, data:{token}})
+        cookies.set("token", token, {expires: GetExpire()})
 
-Not many people have a boinger right in their markdown.
+        throw redirect(302, "/songs")
+    } else {
+        return invalid(404,{message:"user not found"})
+    }    
+}
 
-## Markdown in your markdown
+// REGISTER FORM!
+const register: Action = async ({ cookies, request }) => {
+    const data = await request.formData()
+    const [username, password, email] = [data.get("user"), data.get("pass"), data.get("email")]
 
-Sometimes what you wrote last week is so good that you just *have* to include it again.
+    if (typeof(username) != "string" || typeof(password) != "string" || typeof(email) != "string" || !username || !password || !email){
+        return invalid(400, {invalid: true})
+    }
 
-I'm not gonna stand in the way of your egomania.
->
-><Section />
-> <Count />
->
->— *Me, May 2019*
+    const token = uuidv4()
+    await prisma.user.create({data:{name:username,password,email,token}})
+    cookies.set("token", token, {expires: GetExpire()})
 
-Yeah, thats right you can put wigdets in markdown (`.svx` files or otherwise). You can put markdown in widgets too.
-
-<Seriously>
-
-### I wasn't joking
-
+    throw redirect(302, "/songs")
+}
 ```
-	This is real life
+<br/>
+
+**To check if a user is logged in I do this serverside:**
+
+```ts
+const token = cookies.get("token")
+if (token){
+    const user = await prisma.user.findUnique({where:{token}, select:{id:true,name:true,isAdmin:true,playlists:true}})
+
+    if (user){
+        //Logged in!
+    }
+}
+```
+<br/>
+
+**Once it's been checked serverside I return whatever is needed. For example I am doing this client side to display that you are logged in:**
+
+```ts
+{#if data.login}
+    <div class="userDiv absolute left-5 flex items-center"><div class="rounded-full bg-b1 w-12 h-12 inline-flex"></div><p class="inline-flex ml-2 text-white">Welcome {USERNAME}!</p></div>
+    <button class="text-white mr-2 z-10" on:click={() => {document.location.href = "/upload"}}>Upload</button>
+    <button class="text-white mr-2 z-10" on:click={() => {document.location.href = "/logout"}}>Logout</button>
+{:else}
+    <button class="text-white mr-2 z-10" on:click={() => {document.location.href = "/login?reg=true"}}>Register</button>
+    <button class="text-white mr-2 z-10" on:click={() => {document.location.href = "/login"}}>Login</button>
+{/if}
 ```
 
----
-## Hej lisa!    
+### **What was hard?**
+There wasn't really anything hard, honestly the hardest part for me was installing prisma onto my project. Otherwise prisma was super easy to use and I would recommend this to other people, I don't know much about databases so I cannot compare to other comparable things. I do think this is a very beginner friendly start though, especially using it with svelte aswell. Even the documentation is awesome for prisma, I just had to google and found my answers quicky. Learning how to do serverside was easy aswell, I don't think I had any problems at all since I already knew how to use node js which easily transitioned into svelte.
 
-<Count/>
+### **Progress**
+✔️ Register / login functionallity <br/>
+✔️ Register / login page <br/>
+✔️ Typescript <br/>
+❌ Audio streaming <br/>
+❌ Song lists <br/>
 
-</Seriously>
-
-Sometimes you need your widgets **inlined** (like this:<Count count="{number}"/>) because why shouldn't you.
-Obviously you have access to values defined in YAML (namespaced under `metadata`) and anything defined in an fenced `js exec` block can be referenced directly.
-
-Normal markdown stuff works too:
-
-| like  | this |
-|-------|------|
-| table | here |
-
-And *this* and **THIS**. And other stuff. You can also use all your favorite Svelte features, like `each` blocks:
-
-<ul>
-{#each list as item}
-  <li>{item}</li>
-{/each}
-</ul>
-
-and all the other good Svelte stuff.
-
+<style>
+    img {
+        width: 60%;
+        border-radius: 16px;
+        border-width: 7px;
+        border-color: rgba(25,25,25, 60%);
+        border-style: solid;
+    }
+    .ImageDiv {
+        background-color: rgba(0, 0, 0, 20%);
+        width: 107.5%;
+        margin-left: -3.75%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
+</style>

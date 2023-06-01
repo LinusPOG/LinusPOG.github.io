@@ -7,15 +7,38 @@ date: "2023-04-21"
  let a = 0;
 </script>
 
-Hello, welcome to Notify Part 1. In this part I will tell you about the start of everything such as the visualiser, login and register. 
+Hello, welcome to Nottify Part 1. In this part I will tell you about the start of everything such as the visualiser, login and register. 
 
 ### **The start of everything**
-Everything started out with me one day playing around with audio related stuff with svelte. What I ended up prototyping was a music visualiser than reacted to the frequencies of the music. It was really rough but it was what started my whole idea of Notify.
+Everything started out with me one day playing around with audio related stuff with svelte. What I ended up prototyping was a music visualiser than reacted to the frequencies of the music. It was really rough but it was what started my whole idea of Notify. I experimented with a circular progress bar. But later on in the project I found out that sometimes, less is more! Which is why I changed it to something else.
 <br />
 <div class="ImageDiv">
     <b>Image below is the early prototype that was made.</b>
     <img src="FirstVersion.PNG" />
 </div>
+Usefull code I used for detecting audio frequencies for visualisation (found this on youtube I think):
+
+```js
+// Initializing "listeners" to audio, audio = HTMLAudioElement. Can be created using new Audio("path").
+const audioContext = new AudioContext()
+const analyserNode = audioContext.createAnalyser(audio)
+const track = audioContext.createMediaElementSource(audio)
+analyserNode.fftSize = NumberOfLines*2
+analyserNode.smoothingTimeConstant = .4
+
+track.connect(analyserNode)
+analyserNode.connect(audioContext.destination)
+
+const bufferLength = analyserNode.frequencyBinCount
+const dataArray = new Uint8Array(bufferLength)
+analyserNode.getByteTimeDomainData(dataArray)
+
+// Updating audio data and looping through frequencies
+analyserNode.getByteTimeDomainData(dataArray)
+for (let i=0; i<bufferLength; i++){
+    const freq = dataArray[i]
+}
+```
 
 ### **After the prototype?**
 After the protype, I decided to make it bigger. Which lead me to planning out a rough idea of the website features, one of the big features I wanted was an account system where you can login and register. That is why it all started with me designing the register/login page.
@@ -26,12 +49,18 @@ I went with a 3d design for the page becaues I wanted to play around with transf
     <img src="FirstVersion.PNG" />
 </div>
 
-### **Good decision but costed me some time**
-While I was designing the register/login page I realised that I might benefit from typescript, which is why I remade everything currently to typescript. I love typescript because of it's utility.
+### **Good decision but it cost me some time**
+While I was designing the register/login page I realised that I might benefit from typescript, which is why I remade everything currently to typescript. I love typescript, for example the autocomplete becomes much better when I can specify types which allows me to write code faster.
+
+### **Conclusion**
+I really enjoy working svelte and this was a good learning experience, I think this was my first time using typescript and oh boy, I really liked it. I like listening to music which is probably why I came up with the idea to begin with, I have actually made a music visualiser before but that was in Roblox but you code in lua there.
 
 ### **Progress**
+❌ Register / login functionallity <br/>
 ✔️ Register / login page <br/>
-✔️ Typescript <br/>
+❌ Typescript <br/>
+❌ Audio streaming <br/>
+❌ Song lists <br/>
 <!-- ❌ idk stuff <br/> -->
 
 
